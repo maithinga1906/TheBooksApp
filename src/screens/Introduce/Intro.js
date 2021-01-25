@@ -1,48 +1,86 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Swiper from 'react-native-swiper';
-import Intro1 from './intro1';
-import Intro2 from './intro2';
-import Intro3 from './intro3';
+import Images from '../../themes/Images/images';
+import IntroComponent from './componentIntro';
 
-export default class Intro extends Component {
+class Demo extends Component {
+  static options(passProps) {
+    return {
+      topBar: {
+        visible: false,
+        drawBehind: true,
+      },
+    };
+  }
+  constructor(props) {
+    super(props);
+    this.state = { showButton: false };
+  }
   render() {
+    const INTROS = [
+      {
+        id: 1,
+        imageSource: Images.intro1,
+        title: 'Tìm sách yêu thích',
+        subTitle: 'Rất nhiều cuốn sách hay và chương trình thú vị được tích hợp trên hệ thống.',
+        statusButton: false,
+      },
+      {
+        id: 2,
+        imageSource: Images.intro2,
+        title: 'Lưu vào giỏ và đặt sách',
+        subTitle: 'Sách sẽ được giữ trong 2 giờ đồng hồ\n Hãy chắc chắn là bạn đến nhận kịp giờ.',
+        statusButton: false,
+      },
+      {
+        id: 3,
+        imageSource: Images.intro3,
+        title: 'Tận hưởng cuốn sách',
+        subTitle: 'Chọn một nơi yêu thích và tận hưởng cuốn sách mà yêu thích thôi nào.',
+        statusButton: true,
+      },
+    ];
     return (
-      <Swiper style={styles.wrapper}>
-        <Intro1 />
-
-        <Intro2 />
-
-        <Intro3 />
-      </Swiper>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.topContainer}>
+          <Swiper style={styles.wrapper} activeDotColor={Colors.primary} loop={false}>
+            {INTROS.map((item) => {
+              return <IntroComponent data={item} key={item.id} />;
+            })}
+          </Swiper>
+        </View>
+      </SafeAreaView>
     );
   }
 }
 
+export default Demo;
+
 const styles = StyleSheet.create({
   wrapper: {},
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
+  txtContinue: {
+    textAlign: 'center',
   },
-  slide1: {
+  buttonGroup: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  button: {
+    width: 145,
+    borderRadius: 5,
+    height: 45,
+  },
+  textButton: { fontSize: 18 },
+  bottomContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: Colors.white,
+    justifyContent: 'space-around',
   },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.white,
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  topContainer: {
+    flex: 4,
     backgroundColor: Colors.white,
   },
 });
