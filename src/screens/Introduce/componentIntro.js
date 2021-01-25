@@ -37,7 +37,7 @@ export default class IntroComponent extends React.PureComponent {
 const styles = StyleSheet.create({
   slide: {
     flex: 1,
-    top: -10,
+    top: -20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -59,11 +59,10 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     alignItems: 'center',
-    flexDirection: 'column-reverse',
-    marginTop: 20,
+    marginTop: 65,
   },
   button: {
-    marginTop: 20,
+    //marginTop: 20,
     backgroundColor: Colors.primary,
     width: 130,
     height: 40,
