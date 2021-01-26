@@ -2,7 +2,7 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-
+import Icon from 'react-native-vector-icons/thebook-appicon';
 export default class IntroComponent extends React.PureComponent {
   render() {
     const { data } = this.props;
@@ -60,11 +60,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'SVN-ProximaNova',
     fontSize: 19,
-    color: Colors.darkGray,
+    color: Colors.grey,
   },
   buttonGroup: {
     alignItems: 'center',
-    marginTop: 80,
+    marginTop: 90,
   },
   button: {
     //marginTop: 20,
