@@ -10,20 +10,6 @@ Navigation.registerComponent('login', () => Login);
 
 export default class Register extends Component {
   render() {
-    const loginRoot = {
-      root: {
-        component: {
-          name: 'login',
-        },
-      },
-    };
-
-    const navigateToLogin = () => {
-      // Navigation.navigate('login');
-      Navigation.events().registerAppLaunchedListener(async () => {
-        Navigation.setRoot(loginRoot);
-      });
-    };
     return (
       <ScrollView>
         <View style={styles.container}>

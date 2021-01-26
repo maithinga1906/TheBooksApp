@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Login from './src/screens/Login/Login';
 import Home from './src/screens/Home';
-const windowWidth = Dimensions.get('window').width - 40;
-const windowHeight = Dimensions.get('window').height - 40;
+import Search from './src/screens/Home/Search';
 
 Navigation.registerComponent('login', () => Login);
 Navigation.registerComponent('home', () => Home);
+
+Navigation.registerComponent('search', () => Search);
 
 Navigation.events().registerAppLaunchedListener(async () => {
   //   Navigation.setRoot({
@@ -96,13 +97,13 @@ Navigation.events().registerAppLaunchedListener(async () => {
           },
           {
             component: {
-              name: 'login',
+              name: 'search',
               passProps: {
                 text: 'This is tab 2',
               },
               options: {
                 bottomTab: {
-                  text: 'login4',
+                  text: 'search',
                   icon: require('./src/assets/images/close.png'),
                   testID: 'SECOND_TAB_BAR_BUTTON',
                 },
