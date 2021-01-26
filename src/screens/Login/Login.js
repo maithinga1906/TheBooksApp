@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
