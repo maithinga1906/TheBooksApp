@@ -2,13 +2,14 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Icon from 'react-native-vector-icons/thebook-appicon';
+//import Icon from 'react-native-vector-icons/thebook-appicon';
 export default class IntroComponent extends React.PureComponent {
   render() {
     const { data } = this.props;
     const { imageSource, title, subTitle, statusButton } = data;
     return (
       <View style={styles.slide}>
+        {/* <Icon name="ic-back" color="red" size={24} /> */}
         <View style={styles.topSlide}>
           <View style={{ justifyContent: 'flex-end' }}>
             <Image
