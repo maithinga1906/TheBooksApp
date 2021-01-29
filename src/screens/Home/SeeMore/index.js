@@ -35,7 +35,7 @@ export default class SeeMore extends Component {
               >
                 <TouchableOpacity style={styles.item}>
                   <Image
-                    source={require('../../../assets/images/book.png')}
+                    source={require('../../../assets/images/book.jpg')}
                     style={styles.imageItem}
                   />
                   <Text style={{ color: '#4a4a4a' }}>Để con được ốm</Text>
@@ -58,7 +58,7 @@ export default class SeeMore extends Component {
 
                 <TouchableOpacity style={styles.item}>
                   <Image
-                    source={require('../../../assets/images/book.png')}
+                    source={require('../../../assets/images/book.jpg')}
                     style={styles.imageItem}
                   />
                   <Text style={{ color: '#4a4a4a' }}>Để con được ốm</Text>
@@ -81,7 +81,7 @@ export default class SeeMore extends Component {
 
                 <TouchableOpacity style={styles.item}>
                   <Image
-                    source={require('../../../assets/images/book.png')}
+                    source={require('../../../assets/images/book.jpg')}
                     style={styles.imageItem}
                   />
                   <Text style={{ color: '#4a4a4a' }}>Để con được ốm</Text>

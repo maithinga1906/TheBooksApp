@@ -34,6 +34,27 @@ const orderListData = [
     status: 'Đang giữ',
     returnDate: '24/08/2018',
   },
+  {
+    id: '5',
+    code: 'K234H32JS',
+    totalPrice: '164.000',
+    status: 'Đang giữ',
+    returnDate: '24/08/2018',
+  },
+  {
+    id: '6',
+    code: 'K234H32JS',
+    totalPrice: '164.000',
+    status: 'Đang giữ',
+    returnDate: '24/08/2018',
+  },
+  {
+    id: '7',
+    code: 'K234H32JS',
+    totalPrice: '164.000',
+    status: 'Đang giữ',
+    returnDate: '24/08/2018',
+  },
 ];
 
 export default orderListData;

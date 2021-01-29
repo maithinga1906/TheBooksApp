@@ -4,8 +4,13 @@ import Home from '../Home';
 import { Navigation } from 'react-native-navigation';
 import OrderList from '../OrderList';
 import Notification from '../Notification';
+import Cart from '../Cart';
+import { NavigationUtils } from '../../navigations';
 Navigation.registerComponent('order-list', () => OrderList);
 Navigation.registerComponent('notification', () => Notification);
+Navigation.registerComponent('cart', () => Cart);
+Navigation.registerComponent('home', () => Home);
+import Icon from 'react-native-vector-icons/thebook-appicon';
 
 export default class BottomNavigator extends Component {
   toggleOpen = () => {};
@@ -18,7 +23,9 @@ export default class BottomNavigator extends Component {
           flexDirection: 'column',
         }}
       >
-        <Home style={{ marginBottom: 75 }} />
+        <View style={{ marginBottom: 70 }}>
+          <Home style={{ marginBottom: 75 }} />
+        </View>
         <View
           style={{
             position: 'absolute',
@@ -43,21 +50,8 @@ export default class BottomNavigator extends Component {
               justifyContent: 'center',
             }}
           >
-            <TouchableOpacity
-              onPress={() => {
-                Alert.alert('Sách');
-              }}
-            >
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={{
-                  uri:
-                    'https://images.vexels.com/media/users/3/157346/isolated/preview/25829f6b8d6ca72aee817a8448ab7024-flat-open-book-icon-by-vexels.png',
-                }}
-                onPress={() => {
-                  Alert.alert('Hiiii');
-                }}
-              ></Image>
+            <TouchableOpacity onPress={() => NavigationUtils.startMainContent()}>
+              <Icon name={'ic-book'} size={30} color={'#2EA3DA'} />
             </TouchableOpacity>
           </View>
 
@@ -77,13 +71,7 @@ export default class BottomNavigator extends Component {
                 })
               }
             >
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={{ uri: 'https://static.thenounproject.com/png/101952-200.png' }}
-                onPress={() => {
-                  Alert.alert('lịch sử đặt hàng');
-                }}
-              />
+              <Icon name={'ic-order'} size={30} color={'#ababab'} />
             </TouchableOpacity>
           </View>
 
@@ -108,7 +96,7 @@ export default class BottomNavigator extends Component {
             >
               <TouchableOpacity
                 onPress={() => {
-                  Alert.alert('click');
+                  Alert.alert('Profile');
                 }}
               >
                 <View style={[styles.button, styles.actionBtn]}>
@@ -142,21 +130,7 @@ export default class BottomNavigator extends Component {
                 })
               }
             >
-              <Image
-                source={{
-                  uri:
-                    'https://c1.klipartz.com/pngpicture/456/822/sticker-png-bell-icon-door-bells-chimes-share-icon-line.png',
-                }}
-                onPress={() => {
-                  Alert.alert('click');
-                }}
-                style={{
-                  marginBottom: 10,
-                  width: 30,
-                  height: 30,
-                }}
-                containerStyle={{ marginHorizontal: 16 }}
-              />
+              <Icon name={'ic-notification-1'} size={30} color={'#ababab'} />
             </TouchableOpacity>
           </View>
           <View
@@ -167,17 +141,15 @@ export default class BottomNavigator extends Component {
             }}
           >
             <TouchableOpacity
-              onPress={() => {
-                Alert.alert('Home');
-              }}
+              onPress={() =>
+                Navigation.push(this.props.componentId, {
+                  component: {
+                    name: 'cart',
+                  },
+                })
+              }
             >
-              <Image
-                source={{
-                  uri: 'https://img.icons8.com/pastel-glyph/2x/home.png',
-                }}
-                style={{ marginBottom: 10, width: 30, height: 30 }}
-                containerStyle={{ marginHorizontal: 16 }}
-              />
+              <Icon name={'ic-cua-hang'} size={30} color={'#ababab'} style={{ marginBottom: 10 }} />
             </TouchableOpacity>
           </View>
         </View>

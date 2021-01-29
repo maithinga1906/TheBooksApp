@@ -1,15 +1,43 @@
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native';
+import { Alert, Dimensions } from 'react-native';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import TextInputComponent from '../Login/TextInputComponent';
 import Register from '../Register/Register';
+import { NavigationUtils } from '../../navigations';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import BottomNavigator from '../BottomNavigator';
+import Icon from 'react-native-vector-icons/thebook-appicon';
 
 const windowWidth = Dimensions.get('window').width - 40;
 Navigation.registerComponent('register', () => Register);
+Navigation.registerComponent('bottomNavigator', () => BottomNavigator);
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { loginSuccess: false };
+  }
+
+  showLoginSuccessAlert = () => {
+    this.setState({
+      loginSuccess: true,
+    });
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'bottomNavigator',
+      },
+    });
+  };
+
+  hideLoginSuccessAlert = () => {
+    this.setState({
+      loginSuccess: false,
+    });
+  };
+
   render() {
+    const { loginSuccess } = this.state;
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -29,8 +57,27 @@ export default class Login extends Component {
           </View>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 30 }}>
-            <TouchableOpacity style={styles.loginButton}>
+            <TouchableOpacity
+              style={styles.loginButton}
+              onPress={() => this.showLoginSuccessAlert()}
+            >
               <Text style={styles.loginButtonText}> Đăng nhập</Text>
+              <AwesomeAlert
+                show={loginSuccess}
+                showProgress={false}
+                message="Đăng nhập thành công!"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="OK"
+                confirmButtonColor="#FC9619"
+                onCancelPressed={() => {
+                  this.hideLoginSuccessAlert();
+                }}
+                onConfirmPressed={() => {
+                  this.hideLoginSuccessAlert();
+                }}
+              />
             </TouchableOpacity>
 
             <TouchableOpacity

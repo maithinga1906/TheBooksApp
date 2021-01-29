@@ -65,7 +65,7 @@ export default class Filter extends Component {
             <View style={styles.bookItem}>
               <TouchableOpacity>
                 <Image
-                  source={require('../../assets/images/book1.png')}
+                  source={require('../../assets/images/book1.jpg')}
                   style={[styles.bookImage]}
                 />
               </TouchableOpacity>

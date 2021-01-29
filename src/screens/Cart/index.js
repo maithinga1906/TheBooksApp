@@ -9,34 +9,73 @@ import {
   Dimensions,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import Home from '../Home';
 import Search from '../Home/Search';
-Navigation.registerComponent('home', () => Home);
 Navigation.registerComponent('search', () => Search);
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('screen');
+import AwesomeAlert from 'react-native-awesome-alerts';
+import { NavigationUtils } from '../../navigations';
+import Icon from 'react-native-vector-icons/thebook-appicon';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export default class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { removeSuccess: false, orderSuccess: false };
+  }
+
+  showRemoveSuccessAlert = () => {
+    this.setState({
+      removeSuccess: true,
+    });
+  };
+
+  hideRemoveSuccessAlert = () => {
+    this.setState({
+      removeSuccess: false,
+    });
+  };
+
+  showOrderSuccessAlert = () => {
+    this.setState({
+      orderSuccess: true,
+    });
+  };
+
+  hideOrderSuccessAlert = () => {
+    this.setState({
+      orderSuccess: false,
+    });
+  };
   render() {
+    const { orderSuccess, removeSuccess } = this.state;
     return (
       <ScrollView>
         <View style={styles.container}>
           <View style={{ marginTop: 25.5 }}>
             <View style={styles.spacingAround}>
-              <TouchableOpacity
-                onPress={() =>
-                  Navigation.push(this.props.componentId, {
-                    component: {
-                      name: 'home',
-                    },
-                  })
-                }
-              >
-                <Image source={require('../../assets/images/back.png')} />
+              <TouchableOpacity onPress={() => NavigationUtils.startMainContent()}>
+                <Icon name="ic-back" size={18} />
               </TouchableOpacity>
               <Text>Giỏ hàng</Text>
-              <TouchableOpacity>
-                <Image source={require('../../assets/images/trash.png')} />
+              <TouchableOpacity onPress={() => this.showRemoveSuccessAlert()}>
+                <Icon name="ic-trash" size={18} />
               </TouchableOpacity>
+              <AwesomeAlert
+                show={removeSuccess}
+                showProgress={false}
+                message="Sách đã được xóa khỏi giỏ hàng của bạn"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="Cám ơn"
+                confirmButtonColor="#FC9619"
+                onCancelPressed={() => {
+                  this.hideRemoveSuccessAlert();
+                }}
+                onConfirmPressed={() => {
+                  this.hideRemoveSuccessAlert();
+                }}
+              />
             </View>
           </View>
         </View>
@@ -55,7 +94,7 @@ export default class Cart extends Component {
             <View style={styles.bookItem}>
               <TouchableOpacity>
                 <Image
-                  source={require('../../assets/images/book1.png')}
+                  source={require('../../assets/images/book1.jpg')}
                   style={[styles.bookImage]}
                 />
               </TouchableOpacity>
@@ -77,15 +116,14 @@ export default class Cart extends Component {
                       flexDirection: 'row',
                     }}
                   >
-                    <Image source={require('../../assets/images/star.png')} />
-                    <Image source={require('../../assets/images/star.png')} />
-                    <Image source={require('../../assets/images/star.png')} />
-                    <Image source={require('../../assets/images/star.png')} />
-                    <Image source={require('../../assets/images/star.png')} />
+                    <Icon name="star" color={Colors.yellow} size={15} />
+                    <Icon name="star" color={Colors.yellow} size={15} />
+                    <Icon name="star" color={Colors.yellow} size={15} />
+                    <Icon name="star" color={Colors.yellow} size={15} />
+                    <Icon name="ic-star-pre" color={Colors.yellow} size={15} />
                   </View>
                   <Text style={{ color: '#ababab', marginRight: 90 }}> 145</Text>
                 </View>
-
 
                 <View style={[styles.spacingAround, { marginTop: 35.25 }]}>
                   <View
@@ -94,7 +132,7 @@ export default class Cart extends Component {
                       flexDirection: 'row',
                     }}
                   >
-                    <Image source={require('../../assets/images/star.png')} />
+                    <Icon name="ic-book-1" color={Colors.yellow} size={18} />
                     <Text style={{ color: '#ababab', marginLeft: 4.5 }}> 04 quyển</Text>
                   </View>
 
@@ -104,7 +142,7 @@ export default class Cart extends Component {
                       flexDirection: 'row',
                     }}
                   >
-                    <Image source={require('../../assets/images/star.png')} />
+                    <Icon name="ic-price" color={Colors.yellow} size={18} />
                     <Text style={{ color: '#ababab', marginLeft: 4.5 }}> 36.000</Text>
                   </View>
                 </View>
@@ -112,6 +150,30 @@ export default class Cart extends Component {
             </View>
           </View>
         </View>
+        <TouchableOpacity onPress={() => this.showOrderSuccessAlert()}>
+          <View style={[styles.bottomBtn]}>
+            <Text style={{ color: 'white' }}>Đặt sách</Text>
+          </View>
+        </TouchableOpacity>
+        <AwesomeAlert
+          show={orderSuccess}
+          showProgress={false}
+          message={`
+          Sách đã được đặt thành công!
+      Bạn có thể theo dõi tại mục cá nhân
+          `}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showConfirmButton={true}
+          confirmText="Cám ơn"
+          confirmButtonColor="#FC9619"
+          onCancelPressed={() => {
+            this.hideOrderSuccessAlert();
+          }}
+          onConfirmPressed={() => {
+            this.hideOrderSuccessAlert();
+          }}
+        />
       </ScrollView>
     );
   }
@@ -189,5 +251,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  bottomBtn: {
+    width: width,
+    backgroundColor: '#FC9619',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    flexDirection: 'row',
+    flex: 1,
   },
 });

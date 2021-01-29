@@ -18,10 +18,12 @@ Navigation.registerComponent('sort', () => Sort);
 Navigation.registerComponent('cart', () => Cart);
 Navigation.registerComponent('bottomNavigator', () => BottomNavigator);
 Navigation.registerComponent('orderList', () => OrderList);
+Navigation.registerComponent('intro', () => Intro);
 
 import Cart from './src/screens/Cart';
 import BottomNavigator from './src/screens/BottomNavigator';
 import OrderList from './src/screens/OrderList';
+import Intro from './src/screens/Introduce/Intro';
 
 Navigation.events().registerAppLaunchedListener(async () => {
   Navigation.setRoot({
@@ -30,7 +32,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
         children: [
           {
             component: {
-              name: 'bottomNavigator',
+              name: 'intro',
             },
           },
         ],

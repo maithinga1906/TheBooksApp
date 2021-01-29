@@ -2,9 +2,24 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import SeeMore from '../SeeMore';
+import { NavigationUtils } from '../../../navigations';
 Navigation.registerComponent('see-more', () => SeeMore);
+import Icon from 'react-native-vector-icons/thebook-appicon';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import books from './bookData';
 
 export default class WellReadBook extends Component {
+  rateCount(data) {
+    const fields = [];
+    for (let i = 0; i < data; i++) {
+      fields.push(<Icon name="star" color={Colors.yellow} size={15} />);
+    }
+    var a = 5 - data;
+    for (let j = 0; j < a; j++) {
+      fields.push(<Icon name="ic-star-pre" color={Colors.yellow} size={15} />);
+    }
+    return fields;
+  }
   render() {
     return (
       <View style={{ marginTop: 22.5 }}>
@@ -12,98 +27,50 @@ export default class WellReadBook extends Component {
           <Text style={{ fontWeight: 'bold' }}>Đọc nhiều (24)</Text>
           <TouchableOpacity
             style={styles.readMoreButton}
-            onPress={() =>
-              Navigation.push(this.props.componentId, {
-                component: {
-                  name: 'see-more',
-                },
-              })
-            }
+            onPress={() => NavigationUtils.startSeeMoreContent()}
           >
             <Text style={styles.readMoreButtonText}>Xem hết</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.scrollViewHolder}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <TouchableOpacity style={styles.item}>
-              <Image source={require('../../../assets/images/book.png')} style={styles.imageItem} />
-              <Text style={{ color: '#4a4a4a' }}>Để con được ốm</Text>
-              <Text style={{ color: '#ababab' }}>Nguyễn Trí Đoàn</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Text style={{ color: '#ababab' }}> 1.278</Text>
+            {books.map((item, index) => (
+              <View>
+                {item.category == 'Đọc nhiều' ? (
+                  <TouchableOpacity
+                    style={styles.item}
+                    onPress={() =>
+                      Navigation.push(this.props.componentId, {
+                        component: {
+                          name: 'see-detail',
+                          passProps: {
+                            data: item,
+                          },
+                        },
+                      })
+                    }
+                  >
+                    <Image source={item.image} style={styles.imageItem} />
+                    <Text numberOfLines={1} style={{ color: '#4a4a4a' }}>
+                      {item.nameBook.length < 14
+                        ? `${item.nameBook}`
+                        : `${item.nameBook.substring(0, 14)}...`}
+                    </Text>
+                    <Text style={{ color: '#ababab' }}>{item.author}</Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
+                      {this.rateCount(`${item.rate}`)}
+                      <Text style={{ color: '#ababab' }}> 1.278</Text>
+                    </View>
+                  </TouchableOpacity>
+                ) : null}
               </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.item}>
-              <Image source={require('../../../assets/images/book.png')} style={styles.imageItem} />
-              <Text style={{ color: '#4a4a4a' }}>Để con được ốm</Text>
-              <Text style={{ color: '#ababab' }}>Nguyễn Trí Đoàn</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Text style={{ color: '#ababab' }}> 1.278</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.item}>
-              <Image source={require('../../../assets/images/book.png')} style={styles.imageItem} />
-              <Text style={{ color: '#4a4a4a' }}>Để con được ốm</Text>
-              <Text style={{ color: '#ababab' }}>Nguyễn Trí Đoàn</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Text style={{ color: '#ababab' }}> 1.278</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.item}>
-              <Image source={require('../../../assets/images/book.png')} style={styles.imageItem} />
-              <Text style={{ color: '#4a4a4a' }}>Để con được ốm</Text>
-              <Text style={{ color: '#ababab' }}>Nguyễn Trí Đoàn</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Image source={require('../../../assets/images/star.png')} />
-                <Text style={{ color: '#ababab' }}> 1.278</Text>
-              </View>
-            </TouchableOpacity>
+            ))}
           </ScrollView>
         </View>
       </View>

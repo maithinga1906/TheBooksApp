@@ -5,23 +5,60 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  Image,
   Dimensions,
   FlatList,
   Alert,
+  Image,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { NavigationUtils } from '../../navigations';
-import Home from '../Home';
 import Search from '../Home/Search';
-import orderListData from './orderListData';
-Navigation.registerComponent('home', () => Home);
+import SeeMore from '../Home/SeeMore';
+import notifyData from './notifyData';
 Navigation.registerComponent('search', () => Search);
 const { width, height } = Dimensions.get('window');
+Navigation.registerComponent('see-more', () => SeeMore);
 import Icon from 'react-native-vector-icons/thebook-appicon';
 
-export default class OrderList extends Component {
+export default class Notification extends Component {
   render() {
+    const getCurrentDate = (data) => {
+      const monthNames = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+      var date = new Date(data).getDate();
+      var month = new Date(data).getMonth() + 1;
+      var year = new Date(data).getFullYear();
+      var hours = new Date(data).getHours();
+      var min = new Date(data).getMinutes();
+
+      var currentDate = new Date().getDate();
+      var currentMonth = new Date().getMonth() + 1;
+      var currentYear = new Date().getFullYear();
+      if (currentYear == year && currentMonth == month) {
+        if (currentDate == date) {
+          return hours + ':' + min;
+        } else if (currentDate > date) {
+          var dayLeft = currentDate - date;
+          if (dayLeft == 1) {
+            return 'hôm qua, ' + hours + ':' + min;
+          } else return dayLeft + ' ngày trước, ' + hours + ':' + min;
+        }
+      }
+
+      return date + ' ' + monthNames[month] + ', ' + year + ', ' + hours + ':' + min;
+    };
     return (
       <View
         style={{
@@ -29,12 +66,12 @@ export default class OrderList extends Component {
           flexDirection: 'column',
         }}
       >
-        <View>
+        <View style={{ marginBottom: 70 }}>
           <ScrollView>
             <View style={styles.container}>
               <View style={{ marginTop: 25.5 }}>
                 <View style={styles.title}>
-                  <Text style={styles.titleText}>Danh sách đơn hàng</Text>
+                  <Text style={styles.titleText}>Thông báo</Text>
                 </View>
               </View>
             </View>
@@ -46,43 +83,41 @@ export default class OrderList extends Component {
                 padding: 0,
               }}
             />
-
-            <View style={styles.orderItem}>
-              {orderListData.map((item, index) => (
+            <FlatList
+              data={notifyData}
+              renderItem={({ item }) => (
                 <View>
-                  <TouchableOpacity style={[styles.orderItemInfo]} index={index}>
-                    <View style={[styles.spacingAround]}>
-                      <Text style={{ color: '#4a4a4a' }}>{item.totalPrice}</Text>
-                      <Text style={{ color: '#7f7f7f' }}>Mã: {item.code}</Text>
-                    </View>
+                  <TouchableOpacity style={styles.notifyItem}>
+                    {item.title == 'Thông báo' ? (
+                      <View style={[styles.borderNotifyIcon, styles.borderIcon]}>
+                        <Icon name={item.icon} size={25} color={'white'} />
+                      </View>
+                    ) : item.title == 'Mượn sách' ? (
+                      <View style={[styles.borderBorrowIcon, styles.borderIcon]}>
+                        <Icon name={item.icon} size={25} color={'white'} />
+                      </View>
+                    ) : (
+                      <View style={[styles.borderPromotionIcon, , styles.borderIcon]}>
+                        <Icon name={item.icon} size={25} color={'white'} />
+                      </View>
+                    )}
+                    <View>
+                      <View style={styles.spacingAround}>
+                        <Text style={{ color: '#4a4a4a', fontSize: 25 }}>{item.title}</Text>
+                        <Text style={{ color: '#4a4a4a', marginRight: 42 }}>
+                          {getCurrentDate(item.date)}{' '}
+                        </Text>
+                      </View>
 
-                    <View style={[styles.spacingAround]}>
-                      <Text style={{ color: '#7f7f7f' }}>Ngày trả: {item.returnDate}</Text>
-                      {item.status == 'Đang giữ' ? (
-                        <Text style={{ color: '#fc9619' }}>{item.status}</Text>
-                      ) : item.status == 'Đang mượn' ? (
-                        <Text style={{ color: '#73c700' }}>{item.status}</Text>
-                      ) : item.status == 'Đã trả' ? (
-                        <Text style={{ color: '#1d9dd8' }}>{item.status}</Text>
-                      ) : (
-                        <Text style={{ color: '#fd4176' }}>{item.status}</Text>
-                      )}
+                      <Text style={{ color: '#4a4a4a', marginRight: 42 }}>{item.content}</Text>
                     </View>
                   </TouchableOpacity>
-                  <View
-                    style={{
-                      borderBottomColor: '#e9e9e9',
-                      borderBottomWidth: 1,
-                      width: width,
-                      padding: 0,
-                    }}
-                  />
                 </View>
-              ))}
-            </View>
+              )}
+              keyExtractor={(item) => item.id}
+            />
           </ScrollView>
         </View>
-
         <View
           style={{
             position: 'absolute',
@@ -128,7 +163,7 @@ export default class OrderList extends Component {
                 })
               }
             >
-              <Icon name={'ic-order'} size={30} color={'#2EA3DA'} />
+              <Icon name={'ic-order'} size={30} color={'#ababab'} />
             </TouchableOpacity>
           </View>
 
@@ -187,7 +222,7 @@ export default class OrderList extends Component {
                 })
               }
             >
-              <Icon name={'ic-notification-1'} size={30} color={'#ababab'} />
+              <Icon name={'ic-notification-1'} size={30} color={'#2EA3DA'} />
             </TouchableOpacity>
           </View>
           <View
@@ -215,10 +250,10 @@ export default class OrderList extends Component {
   }
 }
 
-OrderList.options = {
+Notification.options = {
   topBar: {
     title: {
-      text: 'OrderList',
+      text: 'Notification',
       color: 'black',
       alignment: 'center',
       fontWeight: 'bold',
@@ -246,10 +281,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  orderItem: {},
-  orderItemInfo: {
+  notifyItem: {
+    flexDirection: 'row',
     marginTop: 9,
     marginBottom: 9,
     padding: 15,
+  },
+  borderBorrowIcon: {
+    borderColor: '#eb6f6f',
+    backgroundColor: '#eb6f6f',
+  },
+  borderPromotionIcon: {
+    borderColor: '#7ed321',
+    backgroundColor: '#7ed321',
+  },
+  borderNotifyIcon: {
+    borderColor: '#f5a623',
+    backgroundColor: '#f5a623',
+  },
+  borderIcon: {
+    height: 40,
+    width: 40,
+    borderRadius: 30,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginRight: 7.5,
   },
 });
