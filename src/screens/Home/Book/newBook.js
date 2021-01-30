@@ -1,40 +1,24 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
-import { Navigation } from 'react-native-navigation';
-import SeeMore from '../SeeMore/index';
-Navigation.registerComponent('see-more', () => SeeMore);
-import Icon from 'react-native-vector-icons/thebook-appicon';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import books from './bookData';
+import { NavigationUtils } from '../../../navigations';
+import rateCount from '../../../components/rate';
+import styles from './styles';
+import bookCount from './bookCount';
 
 export default class NewBook extends Component {
-  rateCount(data) {
-    const fields = [];
-    for (let i = 0; i < data; i++) {
-      fields.push(<Icon name="star" color={Colors.yellow} size={15} />);
-    }
-    var a = 5 - data;
-    for (let j = 0; j < a; j++) {
-      fields.push(<Icon name="ic-star-pre" color={Colors.yellow} size={15} />);
-    }
-    return fields;
-  }
   render() {
     return (
       <View style={{ marginTop: 22.5 }}>
         <View style={[styles.spacingAround]}>
-          <Text style={{ fontWeight: 'bold' }}>Sách mới (47)</Text>
+          <Text style={{ fontWeight: 'bold' }}>Sách mới ({bookCount(books, 'Sách mới')})</Text>
           <TouchableOpacity
             style={styles.readMoreButton}
-            onPress={() =>
-              Navigation.push(this.props.componentId, {
-                component: {
-                  name: 'see-more',
-                },
-              })
-            }
+            onPress={() => NavigationUtils.startSeeMoreContent('Sách mới')}
           >
-            <Text style={styles.readMoreButtonText}>Xem hết</Text>
+            {bookCount(books, 'Sách mới') > 3 ? (
+              <Text style={styles.readMoreButtonText}>Xem hết</Text>
+            ) : null}
           </TouchableOpacity>
         </View>
         <View style={styles.scrollViewHolder}>
@@ -44,16 +28,7 @@ export default class NewBook extends Component {
                 {item.category == 'Sách mới' ? (
                   <TouchableOpacity
                     style={styles.item}
-                    onPress={() =>
-                      Navigation.push(this.props.componentId, {
-                        component: {
-                          name: 'see-detail',
-                          passProps: {
-                            data: item,
-                          },
-                        },
-                      })
-                    }
+                    onPress={() => NavigationUtils.startDetailContent(item)}
                   >
                     <Image source={item.image} style={styles.imageItem} />
                     <Text numberOfLines={1} style={{ color: '#4a4a4a' }}>
@@ -67,10 +42,11 @@ export default class NewBook extends Component {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
+                        width: 100,
                       }}
                     >
-                      {this.rateCount(`${item.rate}`)}
-                      <Text style={{ color: '#ababab' }}> 1.278</Text>
+                      {rateCount(`${item.rate}`)}
+                      <Text style={{ color: '#ababab' }}> {item.view}</Text>
                     </View>
                   </TouchableOpacity>
                 ) : null}
@@ -82,31 +58,3 @@ export default class NewBook extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 15,
-  },
-  spacingAround: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  readMoreButtonText: {
-    color: '#1d9dd8',
-  },
-  scrollViewHolder: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  item: {
-    color: 'black',
-    fontSize: 18,
-    paddingRight: 15.75,
-    paddingTop: 7.5,
-  },
-  imageItem: {
-    width: 112.5,
-    height: 164.25,
-  },
-});

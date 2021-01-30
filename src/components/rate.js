@@ -1,6 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import * as React from 'react';
 export default function rateCount(data) {
   const fields = [];
   for (let i = 0; i < data; i++) {

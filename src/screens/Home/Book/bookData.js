@@ -107,7 +107,7 @@ const books = [
     idBooks: 9,
     nameBook: 'HÔN NHÂN KHÔNG TÌNH YÊU',
     author: 'Diệp Lạc vô tâm',
-    rate: 4,
+    rate: 5,
     description:
       'Thời trung học, anh không yêu cô là thật! \nAnh từng yêu một cô gái khác, đó là thật! \nNhưng \nNăm anh ba mươi tuổi, anh đã cặm cụi viết thư, trả lời những câu hỏi của cô năm mười bảy tuổi. Điều đó là thật.',
     view: 1584,
@@ -130,7 +130,7 @@ const books = [
     category: 'Sách mới',
   },
   {
-    idBooks: 10,
+    idBooks: 11,
     nameBook: 'Mãi mãi là bao xa',
     author: 'Diệp Lạc vô tâm',
     rate: 2,
@@ -143,7 +143,7 @@ const books = [
     category: 'Sách mượn nhiều',
   },
   {
-    idBooks: 10,
+    idBooks: 12,
     nameBook: 'Mãi mãi là bao xa',
     author: 'Diệp Lạc vô tâm',
     rate: 2,
@@ -156,7 +156,7 @@ const books = [
     category: 'Đọc nhiều',
   },
   {
-    idBooks: 10,
+    idBooks: 13,
     nameBook: 'Mãi mãi là bao xa',
     author: 'Diệp Lạc vô tâm',
     rate: 2,
@@ -166,6 +166,18 @@ const books = [
     comment:
       'Có nhiều b đọc mấy truyện cao siêu quen r đọc truyện này bảo nhạt, riêng mình thì thấy truyện rất hay và chân thật thực tế, vừa lquan đến tình yêu và gia đình cũng như hiện thực xã hội, đọc xong khiến mình còn suy ngẫm, cũng ngọt ngào hài hước, nói chung là đáng để đọc.',
     image: Images.book10,
+    category: 'Đọc nhiều',
+  },
+  {
+    idBooks: 14,
+    nameBook: 'Nếu Một Ngày Cậu Bất Chợt Rời Xa',
+    author: 'Ban Yoon Hwan',
+    rate: 5,
+    description: 'Sao cậu không tới gần người khác và cũng không để người khác tới gần cậu thế?',
+    view: 1484,
+    comment:
+      'E hèm! Nãy h viết nhìu cái đánh giá về các sách khác nhau rồi nên nói thẳng luôn! Nội dung thì mình ko nói tới! Còn về phần đóng gói khá tệ, nếu ko muốn nói là rất tệ! Plastic bọc sách giống như bị "bay hơi" vậy á! Chí ít thì hơi rách chút cũng đc nhưng mất tiêu thế này thì tệ hết sức! Sách còn bị bám bụi rất nhiều, lấy khăn giấy lau xong đen thui lun! Bực hết chỗ nói! Đã vậy cái bookmark còn cong vòng cong vẹo, vuốt cả tiếng đồng hồ mới thẳng lại đc như hình, nói chung là dù có thể mua ở chỗ khác nhưng mình chọn tiki vì thấy bọc plastic kĩ càng và quà tặng ko hư hại j nhiều hết! Nhưng cuốn này thì thôi, hết muốn nói luôn!!!',
+    image: Images.book11,
     category: 'Đọc nhiều',
   },
 ];

@@ -56,7 +56,7 @@ export default class Cart extends Component {
               <TouchableOpacity onPress={() => NavigationUtils.startMainContent()}>
                 <Icon name="ic-back" size={18} />
               </TouchableOpacity>
-              <Text>Giỏ hàng</Text>
+              <Text style={{ fontWeight: 'bold' }}>Giỏ hàng</Text>
               <TouchableOpacity onPress={() => this.showRemoveSuccessAlert()}>
                 <Icon name="ic-trash" size={18} />
               </TouchableOpacity>

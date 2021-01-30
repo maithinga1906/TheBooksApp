@@ -1,29 +1,29 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Images from '../../themes/Images/images';
 import rateCount from '../../components/rate';
 import books from '../Home/Book/bookData';
-import { Navigation } from 'react-native-navigation';
+import { NavigationUtils } from '../../navigations';
+const { width, height } = Dimensions.get('screen');
 
 export default function Detail(props) {
-  // static options(passProps) {
-  //   return {
-  //     topBar: {
-  //       visible: false,
-  //       drawBehind: true,
-  //     },
-  //   };
-  // }
-
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.topContainer}>
           <View style={styles.icon}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => NavigationUtils.startMainContent()}>
               <Icon name="ic-back" size={20} />
             </TouchableOpacity>
             <TouchableOpacity>
@@ -32,19 +32,19 @@ export default function Detail(props) {
           </View>
 
           <View style={styles.image}>
-            <Image source={props.item.image} />
+            <Image source={props.details.image} style={{ width: 225, height: 325 }} />
           </View>
 
           <View style={styles.content}>
-            <Text style={styles.title}>{props.item.nameBook}</Text>
-            <Text style={styles.author}>{props.item.author}</Text>
+            <Text style={styles.title}>{props.details.nameBook}</Text>
+            <Text style={styles.author}>{props.details.author}</Text>
 
             <View style={{ flexDirection: 'row' }}>
-              <View style={styles.rate}>{this.rateCount(props.item.rate)}</View>
+              <View style={styles.rate}>{rateCount(props.details.rate)}</View>
 
               <View style={styles.price}>
                 <Icon name="ic-price" color={Colors.yellow} size={15} />
-                <Text style={{ color: Colors.grey }}>{props.item.view}</Text>
+                <Text style={{ color: Colors.grey }}>{props.details.view}</Text>
               </View>
             </View>
 
@@ -64,7 +64,7 @@ export default function Detail(props) {
 
             <View style={styles.description}>
               <Text style={styles.desContent}>
-                {props.item.description}
+                {props.details.description}
                 <TouchableOpacity>
                   <Text style={{ color: Colors.primary, fontSize: 15 }}>xem hết</Text>
                 </TouchableOpacity>
@@ -73,30 +73,21 @@ export default function Detail(props) {
           </View>
         </View>
 
-        <View style={{ marginTop: 22.5 }}>
+        <View style={{ marginTop: 22.5, padding: 15 }}>
           <View style={[styles.spacingAround]}>
-            <Text style={{ fontWeight: 'bold' }}>Sách mượn nhiều</Text>
+            <Text style={{ fontWeight: 'bold' }}>Sách tương tự</Text>
             <TouchableOpacity style={styles.readMoreButton}>
-              <Text style={styles.readMoreButtonText}>Xem hết</Text>
+              <Text style={styles.readMoreButtonText}>xem hết</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.scrollViewHolder}>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
               {books.map((item, index) => (
                 <View>
-                  {item.category == props.item.category ? (
+                  {item.category == props.details.category ? (
                     <TouchableOpacity
                       style={styles.item}
-                      onPress={() =>
-                        Navigation.push(this.props.componentId, {
-                          component: {
-                            name: 'detail',
-                            passProps: {
-                              data: item,
-                            },
-                          },
-                        })
-                      }
+                      onPress={() => NavigationUtils.startDetailContent(item)}
                     >
                       <Image source={item.image} style={styles.imageItem} />
                       <Text numberOfLines={1} style={{ color: '#4a4a4a' }}>
@@ -112,8 +103,8 @@ export default function Detail(props) {
                           alignItems: 'center',
                         }}
                       >
-                        {this.rateCount(`${item.rate}`)}
-                        <Text style={{ color: '#ababab' }}> 1.278</Text>
+                        {rateCount(`${item.rate}`)}
+                        <Text style={{ color: '#ababab' }}> {item.view}</Text>
                       </View>
                     </TouchableOpacity>
                   ) : null}
@@ -123,7 +114,7 @@ export default function Detail(props) {
           </View>
         </View>
 
-        <View style={styles.comment}>
+        <View style={styles.viewComment}>
           <Text style={styles.commentTitle}>Nhận xét</Text>
 
           <TouchableOpacity style={styles.commentBut}>
@@ -157,8 +148,14 @@ export default function Detail(props) {
                 </View>
               </View>
             </View>
+            <Text style={{ color: '#7f7f7f' }}>{props.details.comment}</Text>
           </View>
         </View>
+        <TouchableOpacity>
+          <View style={[styles.bottomBtn]}>
+            <Text style={{ color: 'white' }}>Thêm vào giỏ</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -193,7 +190,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   image: {
-    paddingLeft: 75,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   content: {
     alignItems: 'center',
@@ -293,5 +291,21 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  readMoreButtonText: {
+    color: Colors.primary,
+  },
+  spacingAround: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bottomBtn: {
+    width: width,
+    backgroundColor: '#FC9619',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    flexDirection: 'row',
+    flex: 1,
   },
 });

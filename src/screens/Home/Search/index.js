@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Dimensions, FlatList } from 'react-native';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Home from '../../Home/index';
-const screenWidth = Dimensions.get('screen').width - 40;
 Navigation.registerComponent('home', () => Home);
-import SearchBar from 'react-native-search-bar';
 import recentSearch from './recentSearch';
+import Icon from 'react-native-vector-icons/thebook-appicon';
+import { TextInput } from 'react-native-gesture-handler';
+import { NavigationUtils } from '../../../navigations';
 
 export default class Search extends Component {
   render() {
@@ -15,18 +16,39 @@ export default class Search extends Component {
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.closeButton}
-            onPress={() =>
-              Navigation.push(this.props.componentId, {
-                component: {
-                  name: 'home',
-                },
-              })
-            }
+            onPress={() => NavigationUtils.startMainContent()}
           >
-            <Image source={require('../../../assets/images/close.png')} />
+            <Icon name={'ic-delete'} size={18} />
           </TouchableOpacity>
 
-          <SearchBar ref="searchBar" placeholder="Hãy nhập tên sách mà bạn muốn tìm!" />
+          {/* <SearchBar ref="searchBar" placeholder="Hãy nhập tên sách mà bạn muốn tìm!" /> */}
+          <View
+            style={{
+              paddingHorizontal: 10,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <TextInput
+              style={{
+                fontSize: 18,
+                color: 'black',
+                borderBottomColor: '#e9e9e9',
+              }}
+              placeholder={'Hãy nhập tên sách mà bạn muốn tìm!'}
+            />
+            <TouchableOpacity>
+              <Icon name={'ic-search'} size={18} />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              borderBottomColor: '#e9e9e9',
+              borderBottomWidth: 1,
+              padding: 0,
+            }}
+          />
 
           <View style={{ marginBottom: 10.5 }}>
             <Text style={{ marginTop: 10.8, color: '#ababab' }}>Các từ khoá thông dụng</Text>
@@ -77,27 +99,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  readMoreButtonText: {
-    color: '#1d9dd8',
-  },
-  scrollViewHolder: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   item: {
     color: 'black',
     fontSize: 18,
     paddingRight: 18.75,
     paddingTop: 7.5,
-  },
-  imageItem: {
-    width: screenWidth / 2 - 25,
-    height: 250,
-  },
-  filterTitle: {
-    marginTop: 12.75,
-    marginBottom: 7.5,
   },
   searchBar: {
     marginTop: 17.85,

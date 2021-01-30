@@ -6,17 +6,19 @@ import rateCount from '../../../components/rate';
 import styles from './styles';
 import bookCount from './bookCount';
 
-export default class WellReadBook extends Component {
+export default class FavouritedBooks extends Component {
   render() {
     return (
       <View style={{ marginTop: 22.5 }}>
         <View style={[styles.spacingAround]}>
-          <Text style={{ fontWeight: 'bold' }}>Đọc nhiều ({bookCount(books, 'Đọc nhiều')})</Text>
+          <Text style={{ fontWeight: 'bold' }}>
+            Sách được yêu thích ({bookCount(books, 'Sách được yêu thích')})
+          </Text>
           <TouchableOpacity
             style={styles.readMoreButton}
-            onPress={() => NavigationUtils.startSeeMoreContent('Đọc nhiều')}
+            onPress={() => NavigationUtils.startSeeMoreContent('Sách được yêu thích')}
           >
-            {bookCount(books, 'Đọc nhiều') > 3 ? (
+            {bookCount(books, 'Sách được yêu thích') > 3 ? (
               <Text style={styles.readMoreButtonText}>Xem hết</Text>
             ) : null}
           </TouchableOpacity>
@@ -25,7 +27,7 @@ export default class WellReadBook extends Component {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {books.map((item, index) => (
               <View>
-                {item.category == 'Đọc nhiều' ? (
+                {item.category == 'Sách được yêu thích' ? (
                   <TouchableOpacity
                     style={styles.item}
                     onPress={() => NavigationUtils.startDetailContent(item)}

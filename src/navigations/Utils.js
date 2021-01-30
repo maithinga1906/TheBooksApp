@@ -2,8 +2,14 @@ import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Login from '../screens/Login/Login';
 import BottomNavigator from '../screens/BottomNavigator';
+import Detail from '../screens/Detail';
+import SeeMore from '../screens/Home/SeeMore';
+import Search from '../screens/Home/Search';
 Navigation.registerComponent('login', () => Login);
 Navigation.registerComponent('bottomNavigator', () => BottomNavigator);
+Navigation.registerComponent('detail', () => Detail);
+Navigation.registerComponent('seeMore', () => SeeMore);
+Navigation.registerComponent('search', () => Search);
 
 const SIDE_MENU_ID = 'sideMenu';
 const SCREEN_OVERLAY = {
@@ -188,35 +194,62 @@ class NavigationUtils {
     });
   }
 
-  // startDetailContent() {
-  //   Navigation.setRoot({
-  //     root: {
-  //       stack: {
-  //         children: [
-  //           {
-  //             component: {
-  //               name: 'Detail',
-  //               options: {
-  //                 topBar: {
-  //                   visible: false,
-  //                 },
-  //               },
-  //             },
-  //           },
-  //         ],
-  //       },
-  //     },
-  //   });
-  // }
-
-  startSeeMoreContent() {
+  startDetailContent(item) {
     Navigation.setRoot({
       root: {
         stack: {
           children: [
             {
               component: {
-                name: 'SeeMore',
+                name: 'detail',
+                passProps: {
+                  details: item,
+                },
+                options: {
+                  topBar: {
+                    visible: false,
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
+
+  startSeeMoreContent(myText) {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'seeMore',
+                passProps: {
+                  values: myText,
+                },
+                options: {
+                  topBar: {
+                    visible: false,
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
+
+  startSearchContent() {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'search',
                 options: {
                   topBar: {
                     visible: false,

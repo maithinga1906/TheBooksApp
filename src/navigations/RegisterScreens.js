@@ -7,12 +7,16 @@ import Register from '../screens/Register/Register';
 import Login from '../screens/Login/Login';
 import BottomNavigator from '../screens/BottomNavigator';
 import SeeMore from '../screens/Home/SeeMore';
+import Detail from '../screens/Detail';
+import Search from '../screens/Home/Search';
 
 const SCREENS_WITH_REDUX = {
   Login,
   Register,
   BottomNavigator,
   SeeMore,
+  Detail,
+  Search,
 };
 const SCREENS = {};
 
