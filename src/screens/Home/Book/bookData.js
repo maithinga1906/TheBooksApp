@@ -161,7 +161,7 @@ const books = [
     author: 'Diệp Lạc vô tâm',
     rate: 2,
     description:
-      'Bạch Lăng Lăng, nữ sinh khoa Điện khí, trẻ trung, xinh đẹp và rất tự hào khi quen được một người bạn lý tưởng qua mạng, chàng du học sinh của một trường nổi tiếng của Mỹ, người mang biệt danh “nhà khoa học”:',
+      'Bạch Lăng Lăng alo, nữ sinh khoa Điện khí, trẻ trung, xinh đẹp và rất tự hào khi quen được một người bạn lý tưởng qua mạng, chàng du học sinh của một trường nổi tiếng của Mỹ, người mang biệt danh “nhà khoa học”:',
     view: 1584,
     comment:
       'Có nhiều b đọc mấy truyện cao siêu quen r đọc truyện này bảo nhạt, riêng mình thì thấy truyện rất hay và chân thật thực tế, vừa lquan đến tình yêu và gia đình cũng như hiện thực xã hội, đọc xong khiến mình còn suy ngẫm, cũng ngọt ngào hài hước, nói chung là đáng để đọc.',
